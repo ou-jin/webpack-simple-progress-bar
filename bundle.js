@@ -1,11 +1,12 @@
 'use strict';
 
-const chalk = require("chalk");// 变色
+const chalk = require("chalk");
 // const webpack = require("webpack");
-const ProgressPlugin = require("webpack").ProgressPlugin;// 获取编译状态
-const BLOCK_CHAR = "\u2588"; // 文字块
+const ProgressPlugin = require("webpack").ProgressPlugin;
+const BLOCK_CHAR = "\u2588"; 
 const ansiEscapes = require('ansi-escapes');
 const wrapAnsi = require('wrap-ansi');
+ 
 let running = false;
 
 // 开始时间
@@ -106,7 +107,7 @@ class BarPlugin extends ProgressPlugin {
     
     super({ activeModules: true });
  
-    this.color = colorize(options.color || "#65f3ba");
+    this.color = colorize(options.color || "#3abce9");
     
     this.length = options.length || 30;
     
@@ -128,16 +129,18 @@ class BarPlugin extends ProgressPlugin {
       
       const barText = [...Array(len).keys()].map((i) => (i < w ? fg : bg)).join("");
 
-      const cmdText = chalk.yellow("编译进度") + 
-                      chalk.green((100 * percent).toFixed(2) + "% ") +
+      const pnum = (100 * percent).toFixed(2);
+
+      const cmdText = chalk.hex('#3abce9').bold(pnum&1==1?"┗( ▔﹃ ▔ )┛ ":"┏( ▔﹃ ▔ )┓ ") + 
                       barText + 
-                      (message?chalk.yellow("编译状态") + chalk.blue(message):'');
+                      (message?this.color(' '+message+':') :'')+
+                      this.color(" "+pnum + "%");
       
-      logUpdate.render("\n" + cmdText + "\n");
+      logUpdate.render("\n" + cmdText + "\n"); 
 
       if(percent == 1){
         const buildTime = (new Date - startTime) / 1000 + 's';
-        stream.write('\n'+chalk.blue.bold('编译完成,总共花费' + buildTime + '\n\n'));
+        stream.write('\n'+this.color('Compiled successfully:' + buildTime + '\n\n'));
       }
     };
   }

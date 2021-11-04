@@ -1,11 +1,11 @@
 # webpack-simple-progress-bar
-it is a simple webpcak progress plugin
+it is a simple webpcak progress bar plugin
 ### webpack-simple-progress-bar
 
 A simple webpack progress bar plugin
 
 #### Effect
-![](http://106.55.160.96/file/img/webpackBar.gif)
+![](http://106.55.160.96/file/img/webpack-bar.gif)
 
 #### Instructions
 
@@ -13,21 +13,28 @@ A simple webpack progress bar plugin
 `npm i webpack-simple-progress-bar`
 
 
-
-    
-    const bar = require('webpack-simple-progress-bar');
-    
-    plugins: [
-        new bar(),
-    ]
-
-#### params
-
+```javascript
+var bar = require('webpack-simple-progress-bar');
+...
+plugins: [
+  new bar()
+]
 ```
-new bar(
- {
-  color:' #65f3ba',
-  length:30
- }
-)
+
+###### Options
+
+- `color` the color of the progress bar
+- `length` the length of the progress bar
+
+
+ ```javascript
+  new bar(
+    {
+        color:' #65f3ba',
+        length:30
+    }
+  )
 ```
+ 
+
+ 
